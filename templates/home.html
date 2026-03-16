@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}首页 - Like GitHub{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-4">欢迎来到 Like GitHub</h1>
+        <p class="lead mb-5">一个类似GitHub的代码托管平台，支持Git协议，让您的代码管理更加便捷。</p>
+        
+        {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-plus"></i> 创建新仓库</h5>
+                        <p class="card-text">开始一个新的项目，上传您的代码。</p>
+                        <a href="/repositories/create/" class="btn btn-primary">新建仓库</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-book"></i> 我的仓库</h5>
+                        <p class="card-text">查看和管理您的所有代码仓库。</p>
+                        <a href="/repositories/" class="btn btn-outline-primary">查看仓库</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user-plus"></i> 注册账户</h5>
+                        <p class="card-text">创建您的账户，开始使用代码托管服务。</p>
+                        <a href="{% url 'register' %}" class="btn btn-primary">立即注册</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-sign-in-alt"></i> 登录账户</h5>
+                        <p class="card-text">已有账户？登录后开始管理您的代码。</p>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-lg-8 mx-auto">
+        <h3 class="text-center mb-4">功能特性</h3>
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <i class="fab fa-git fa-3x text-primary mb-3"></i>
+                <h5>Git协议支持</h5>
+                <p>完全兼容Git协议，支持clone、push、pull等操作</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+                <h5>安全可靠</h5>
+                <p>用户认证和权限管理，保护您的代码安全</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <i class="fas fa-users fa-3x text-info mb-3"></i>
+                <h5>协作开发</h5>
+                <p>支持团队协作，多人共同开发项目</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

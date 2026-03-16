@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ repository.name }} - Issues{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="fas fa-exclamation-circle"></i> 
+        <a href="{% url 'repository_detail' repo_id=repository.id %}" class="text-decoration-none">{{ repository.name }}</a>
+        / Issues
+    </h2>
+    <a href="{% url 'create_issue' repo_id=repository.id %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> 新建Issue
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        {% for issue in issues %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="card-title">
+                            <a href="{% url 'issue_detail' repo_id=repository.id issue_id=issue.id %}" class="text-decoration-none">
+                                {{ issue.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text text-muted">{{ issue.content|truncatewords:30 }}</p>
+                        <div class="d-flex align-items-center">
+                            <span class="badge {% if issue.is_open %}bg-success{% else %}bg-secondary{% endif %} me-2">
+                                {% if issue.is_open %}开启{% else %}关闭{% endif %}
+                            </span>
+                            <span class="badge bg-info me-2">{{ issue.get_type_display }}</span>
+                            <small class="text-muted">
+                                #{{ issue.id }} 由 {{ issue.creator.username }} 创建于 {{ issue.created_at|date:"Y-m-d H:i" }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <small class="text-muted">{{ issue.comments.count }} 评论</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">暂无Issues</h4>
+            <p class="text-muted">创建第一个Issue开始讨论吧！</p>
+            <a href="{% url 'create_issue' repo_id=repository.id %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> 新建Issue
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">统计信息</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>总Issues：</strong>{{ issues.count }}</p>
+                <p><strong>开启：</strong>{{ open_count }}</p>
+                <p><strong>关闭：</strong>{{ closed_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}动态 - Like GitHub{% endblock %}
+
+{% block content %}
+<h1>动态</h1>
+
+{% if activities %}
+<ul class="list-group">
+    {% for activity in activities %}
+    <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <strong>
+                    <a href="{% url 'profile' username=activity.user.username %}">{{ activity.user.username }}</a>
+                </strong>
+                {{ activity.action }}
+                {% if activity.target_type %}
+                    <span class="text-muted">on {{ activity.target_type }}</span>
+                {% endif %}
+
+                {% if activity.detail %}
+                <div class="text-muted small mt-1">{{ activity.detail|linebreaksbr }}</div>
+                {% endif %}
+            </div>
+            <div class="text-muted small">{{ activity.created_at|date:"Y-m-d H:i" }}</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">暂无动态。</p>
+{% endif %}
+
+{% endblock %}

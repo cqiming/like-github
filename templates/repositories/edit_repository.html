@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}编辑仓库 - Like GitHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-edit"></i> 编辑仓库</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 保存修改
+                        </button>
+                        <a href="/repositories/{{ repository.id }}/" class="btn btn-outline-secondary">返回仓库</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

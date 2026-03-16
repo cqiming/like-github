@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}新建仓库 - Like GitHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-plus"></i> 创建新仓库</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">仓库名称 *</label>
+                        <input type="text" class="form-control" id="name" name="name" required 
+                               placeholder="例如: my-awesome-project">
+                        <div class="form-text">仓库名称只能包含字母、数字、连字符和下划线</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">描述</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"
+                                  placeholder="简短描述您的项目..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="visibility" id="public" value="public" checked>
+                            <label class="form-check-label" for="public">
+                                <i class="fas fa-globe"></i> 公开
+                            </label>
+                            <div class="form-text">任何人都可以查看这个仓库</div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="visibility" id="private" value="private">
+                            <label class="form-check-label" for="private">
+                                <i class="fas fa-lock"></i> 私有
+                            </label>
+                            <div class="form-text">只有您和您邀请的人可以查看</div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> 创建仓库
+                        </button>
+                        <a href="/repositories/" class="btn btn-outline-secondary">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
